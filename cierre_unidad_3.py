@@ -289,3 +289,183 @@ while True:
     elif opcion == 5:
         print("Sistema cerrado")
         break
+
+# EJERCICIO 4
+
+# Variables iniciales
+energia = 100
+tiempo = 12
+cerraduras_abiertas = 0
+alarma = False
+codigo_parcial = ""
+
+racha_forzar = 0
+
+# Nombre
+nombre = input("Nombre del agente: ")
+while not nombre.isalpha() or nombre == "":
+    print("Error: solo letras")
+    nombre = input("Nombre del agente: ")
+
+# Juego
+while energia > 0 and tiempo > 0 and cerraduras_abiertas < 3:
+
+    if alarma and tiempo <= 3:
+        print("Sistema bloqueado por alarma. DERROTA")
+        break
+
+    print(f"\nEnergía: {energia} | Tiempo: {tiempo} | Cerraduras: {cerraduras_abiertas} | Alarma: {alarma}")
+
+    print("1. Forzar cerradura")
+    print("2. Hackear panel")
+    print("3. Descansar")
+
+    opcion = input("Opción: ")
+
+    if not opcion.isdigit():
+        print("Error: ingrese número")
+        continue
+
+    opcion = int(opcion)
+
+    if opcion < 1 or opcion > 3:
+        print("Error: fuera de rango")
+        continue
+
+    # ---------------- FORZAR ----------------
+    if opcion == 1:
+        energia -= 20
+        tiempo -= 2
+        racha_forzar += 1
+
+        if racha_forzar == 3:
+            alarma = True
+            print("Forzaste 3 veces seguidas. Alarma activada!")
+            continue
+
+        if energia < 40:
+            num = input("Riesgo de alarma (1-3): ")
+            while not num.isdigit() or int(num) not in [1, 2, 3]:
+                print("Error: 1-3")
+                num = input("Riesgo de alarma (1-3): ")
+            if int(num) == 3:
+                alarma = True
+
+        if not alarma:
+            cerraduras_abiertas += 1
+            print("Abriste una cerradura")
+
+    # ---------------- HACKEAR ----------------
+    elif opcion == 2:
+        energia -= 10
+        tiempo -= 3
+        racha_forzar = 0
+
+        print("Hackeando...")
+        for i in range(4):
+            codigo_parcial += "A"
+            print(f"Progreso: {codigo_parcial}")
+
+        if len(codigo_parcial) >= 8 and cerraduras_abiertas < 3:
+            cerraduras_abiertas += 1
+            print("Se abrió una cerradura automáticamente!")
+
+    # ---------------- DESCANSAR ----------------
+    elif opcion == 3:
+        energia += 15
+        if energia > 100:
+            energia = 100
+
+        tiempo -= 1
+        racha_forzar = 0
+
+        if alarma:
+            energia -= 10
+
+        print("Descansaste")
+
+# Resultado final
+if cerraduras_abiertas == 3:
+    print("VICTORIA")
+elif energia <= 0 or tiempo <= 0:
+    print("DERROTA")
+
+# EJERCICIO 5
+
+print("--- BIENVENIDO A LA ARENA ---")
+
+# Nombre
+nombre = input("Nombre del Gladiador: ")
+while not nombre.isalpha() or nombre == "":
+    print("Error: Solo se permiten letras.")
+    nombre = input("Nombre del Gladiador: ")
+
+# Variables
+vida_jugador = 100
+vida_enemigo = 100
+pociones = 3
+danio_base = 15
+danio_enemigo = 12
+turno_jugador = True  # BOOLEAN obligatorio
+
+print("\n=== INICIO DEL COMBATE ===")
+
+# Combate
+while vida_jugador > 0 and vida_enemigo > 0:
+
+    print(f"\n{nombre} (HP: {vida_jugador}) vs Enemigo (HP: {vida_enemigo}) | Pociones: {pociones}")
+    print("Elige acción:")
+    print("1. Ataque Pesado")
+    print("2. Ráfaga Veloz")
+    print("3. Curar")
+
+    opcion = input("Opción: ")
+
+    if not opcion.isdigit():
+        print("Error: Ingrese un número válido.")
+        continue
+
+    opcion = int(opcion)
+
+    if opcion < 1 or opcion > 3:
+        print("Error: Ingrese un número válido.")
+        continue
+
+    # -------- ATAQUE PESADO --------
+    if opcion == 1:
+        danio = danio_base
+
+        if vida_enemigo < 20:
+            danio = danio_base * 1.5
+
+        vida_enemigo -= danio
+        print(f"¡Atacaste al enemigo por {danio:.2f} puntos de daño!")
+
+    # -------- RÁFAGA --------
+    elif opcion == 2:
+        print(">> ¡Inicias una ráfaga de golpes!")
+        for i in range(3):
+            vida_enemigo -= 5
+            print("> Golpe conectado por 5 de daño")
+
+    # -------- CURAR --------
+    elif opcion == 3:
+        if pociones > 0:
+            vida_jugador += 30
+            pociones -= 1
+            print("Te curaste 30 puntos de vida.")
+        else:
+            print("¡No quedan pociones!")
+
+    # -------- TURNO ENEMIGO --------
+    if vida_enemigo > 0:
+        vida_jugador -= danio_enemigo
+        print("¡El enemigo te atacó por 12 puntos de daño!")
+
+    print("=== NUEVO TURNO ===")
+
+# Resultado final
+if vida_jugador > 0:
+    print(f"¡VICTORIA! {nombre} ha ganado la batalla.")
+else:
+    print("DERROTA. Has caído en combate.")        
