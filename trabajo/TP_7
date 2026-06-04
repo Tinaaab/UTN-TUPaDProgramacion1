@@ -1,0 +1,234 @@
+#Ejercicio Nro 1
+
+precios_frutas = {
+    "Banana": 1200,
+    "Ananá": 2500,
+    "Melón": 3000,
+    "Uva": 1450
+}
+
+precios_frutas["Naranja"] = 1200
+precios_frutas["Manzana"] = 1500
+precios_frutas["Pera"] = 2300
+
+print(precios_frutas)
+
+#Ejercicio Nro 2
+
+precios_frutas["Banana"] = 1330
+precios_frutas["Manzana"] = 1700
+precios_frutas["Melón"] = 2800
+
+print(precios_frutas)
+
+#Ejercicio Nro 3
+
+frutas = list(precios_frutas.keys())
+
+print(frutas)
+
+#Ejercicio Nro 4
+
+contactos = {}
+
+for i in range(5):
+
+    nombre = input("Ingrese nombre: ")
+
+    while nombre == "":
+
+        print("No puede dejar el nombre vacío")
+        nombre = input("Ingrese nombre: ")
+
+    telefono = input("Ingrese teléfono: ")
+
+    while telefono == "":
+
+        print("No puede dejar el teléfono vacío")
+        telefono = input("Ingrese teléfono: ")
+
+    contactos[nombre] = telefono
+
+buscar = input("Ingrese el nombre a buscar: ")
+
+while buscar == "":
+
+    print("Debe ingresar un nombre")
+    buscar = input("Ingrese el nombre a buscar: ")
+
+if buscar in contactos:
+
+    print("Teléfono:", contactos[buscar])
+
+else:
+
+    print("Contacto no encontrado")
+
+#Ejercicio Nro 5
+
+frase = input("Ingrese una frase: ").lower()
+
+while frase == "":
+
+    print("Debe ingresar una frase")
+    frase = input("Ingrese una frase: ").lower()
+
+palabras = frase.split()
+
+palabras_unicas = set(palabras)
+
+print("Palabras únicas:")
+print(palabras_unicas)
+
+contador = {}
+
+for palabra in palabras:
+
+    if palabra in contador:
+
+        contador[palabra] += 1
+
+    else:
+
+        contador[palabra] = 1
+
+print("Cantidad de apariciones:")
+print(contador)
+
+#Ejercicio Nro 6
+
+alumnos = {}
+
+for i in range(3):
+
+    nombre = input("Nombre del alumno: ")
+
+    while nombre == "":
+
+        print("Debe ingresar un nombre")
+        nombre = input("Nombre del alumno: ")
+
+    notas = (
+        float(input("Nota 1: ")),
+        float(input("Nota 2: ")),
+        float(input("Nota 3: "))
+    )
+
+    alumnos[nombre] = notas
+
+print()
+
+for nombre, notas in alumnos.items():
+
+    promedio = sum(notas) / len(notas)
+
+    print(nombre, "promedio:", promedio)
+
+#Ejercicio Nro 7
+
+asistencias = [
+    "Ana",
+    "Juan",
+    "Pedro",
+    "Ana",
+    "Juan",
+    "Ana"
+]
+
+print("Lista original:")
+print(asistencias)
+
+empleados = set(asistencias)
+
+print("Empleados sin repetir:")
+print(empleados)
+
+for empleado in empleados:
+
+    cantidad = asistencias.count(empleado)
+
+    print(empleado, "asistió", cantidad, "veces")
+
+#Ejercicio Nro 8
+
+stock = {
+    "Lapiz": 10,
+    "Cuaderno": 5
+}
+
+producto = input("Ingrese un producto: ").title()
+
+while producto == "":
+
+    print("Debe ingresar un producto")
+    producto = input("Ingrese un producto: ").title()
+
+if producto in stock:
+
+    print("Stock actual:", stock[producto])
+
+    agregar = int(input("Cantidad a agregar: "))
+
+    stock[producto] += agregar
+
+    print("Nuevo stock:", stock[producto])
+
+else:
+
+    cantidad = int(input("Producto nuevo. Ingrese stock inicial: "))
+
+    stock[producto] = cantidad
+
+print(stock)
+
+#Ejercicio Nro 9
+
+agenda = {
+
+    ("Lunes", "10:00"): "Programación",
+    ("Martes", "18:00"): "Inglés",
+    ("Miércoles", "20:00"): "Gimnasio"
+
+}
+
+dia = input("Ingrese día: ")
+
+while dia == "":
+
+    print("Debe ingresar un día")
+    dia = input("Ingrese día: ")
+
+hora = input("Ingrese hora: ")
+
+while hora == "":
+
+    print("Debe ingresar una hora")
+    hora = input("Ingrese hora: ")
+
+clave = (dia, hora)
+
+if clave in agenda:
+
+    print("Actividad:", agenda[clave])
+
+else:
+
+    print("No hay actividades registradas")
+
+#Ejercicio Nro 10
+
+paises = {
+
+    "Argentina": "Buenos Aires",
+    "Brasil": "Brasilia",
+    "Chile": "Santiago"
+
+}
+
+capitales = {}
+
+for pais, capital in paises.items():
+
+    capitales[capital] = pais
+
+print(capitales)
